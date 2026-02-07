@@ -24,3 +24,16 @@ class Submission(models.Model):
     
     def __str__(self):
         return f"{self.submission_id} - {self.user.username}"
+
+class Bookmark(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookmarks')
+    contest_id = models.IntegerField()
+    index = models.CharField(max_length=5)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'contest_id', 'index')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.contest_id}{self.index}"

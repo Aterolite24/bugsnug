@@ -2,45 +2,91 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
-const Navbar = () => {
+const Navbar = ({ onOpenSidebar }) => {
     const { user, logout } = useContext(AuthContext);
 
     return (
-        <nav className="bg-dark-card border-b border-gray-700">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex items-center space-x-8">
-                        <Link to="/" className="text-xl font-bold text-dark-primary">Bugsnug</Link>
-                        {user && (
-                            <div className="hidden md:flex space-x-4">
-                                <Link to="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Dashboard</Link>
-                                <Link to="/contests" className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Contests</Link>
-                                <Link to="/problems" className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Problems</Link>
-                                <Link to="/friends" className="text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Friends</Link>
-                            </div>
-                        )}
+        <header>
+            <div className="header-main">
+                <div className="container">
+                    <Link to="/" className="header-logo">
+                        <img src="/logo.png" alt="Bugsnug's logo" width="120" height="36" />
+                    </Link>
+
+                    <div className="header-search-container">
+                        <input type="search" name="search" className="search-field" placeholder="Enter your product name..." />
+                        <button className="search-btn">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </button>
                     </div>
-                    <div>
+
+                    <div className="header-user-actions">
                         {user ? (
-                            <div className="flex items-center space-x-4">
-                                <span className="text-gray-300">Hello, {user.username}</span>
-                                <button
-                                    onClick={logout}
-                                    className="px-3 py-2 text-sm font-medium text-red-400 hover:text-red-300 transition"
-                                >
-                                    Logout
+                            <>
+                                <button className="action-btn">
+                                    <ion-icon name="person-outline"></ion-icon>
                                 </button>
-                            </div>
+                                <button onClick={logout} className="action-btn">
+                                    <ion-icon name="log-out-outline"></ion-icon>
+                                </button>
+                            </>
                         ) : (
-                            <div className="space-x-4">
-                                <Link to="/login" className="text-gray-300 hover:text-white transition">Login</Link>
-                                <Link to="/register" className="text-gray-300 hover:text-white transition">Register</Link>
-                            </div>
+                            <Link to="/login" className="action-btn">
+                                <ion-icon name="person-outline"></ion-icon>
+                            </Link>
                         )}
+                        <button className="action-btn">
+                            <ion-icon name="heart-outline"></ion-icon>
+                            <span className="count">0</span>
+                        </button>
+                        <button className="action-btn">
+                            <ion-icon name="bag-handle-outline"></ion-icon>
+                            <span className="count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
-        </nav>
+
+            <nav className="desktop-navigation-menu">
+                <div className="container">
+                    <ul className="desktop-menu-category-list">
+                        <li className="menu-category">
+                            <Link to="/" className="menu-title">Home</Link>
+                        </li>
+                        <li className="menu-category">
+                            <Link to="/contests" className="menu-title">Contests</Link>
+                        </li>
+                        <li className="menu-category">
+                            <Link to="/problems" className="menu-title">Problems</Link>
+                        </li>
+                        <li className="menu-category">
+                            <Link to="/friends" className="menu-title">Friends</Link>
+                        </li>
+                        <li className="menu-category">
+                            <Link to="/study-material" className="menu-title">Study</Link>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div className="mobile-bottom-navigation">
+                <button className="action-btn" onClick={onOpenSidebar} data-mobile-menu-open-btn>
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <Link to="/" className="action-btn">
+                    <ion-icon name="home-outline"></ion-icon>
+                </Link>
+                <Link to="/contests" className="action-btn">
+                    <ion-icon name="trophy-outline"></ion-icon>
+                </Link>
+                <Link to="/problems" className="action-btn">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                </Link>
+                <Link to="/study-material" className="action-btn">
+                    <ion-icon name="book-outline"></ion-icon>
+                </Link>
+            </div>
+        </header>
     );
 };
 

@@ -1,83 +1,117 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import '../styles/login.css';
 
 const Register = () => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [handle, setHandle] = useState('');
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        handle: ''
+    });
+    const [error, setError] = useState('');
     const { register } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [error, setError] = useState('');
+
+    const { username, email, password, confirmPassword, handle } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            return;
+        }
         try {
             await register(username, email, password, handle);
             navigate('/');
         } catch (err) {
-            setError('Registration failed. Handle might be invalid or username taken.');
+            console.error(err);
+            setError('Registration failed. Username taken or handle invalid.');
         }
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-dark-bg text-dark-text">
-            <div className="w-full max-w-md p-8 space-y-6 bg-dark-card rounded-xl shadow-lg border border-gray-700">
-                <h2 className="text-3xl font-bold text-center text-dark-primary">Join Bugsnug</h2>
-                {error && <p className="text-red-500 text-center">{error}</p>}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block mb-1 text-sm">Username</label>
+        <section>
+            <div className="login-box">
+                <form onSubmit={handleSubmit}>
+                    <h2>Register</h2>
+                    {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
                         <input
                             type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-dark-primary text-white"
+                            name="username"
                             required
+                            value={username}
+                            onChange={onChange}
                         />
+                        <label>Username</label>
                     </div>
-                    <div>
-                        <label className="block mb-1 text-sm">Email</label>
+
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="mail-outline"></ion-icon></span>
                         <input
                             type="email"
+                            name="email"
+                            required
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-dark-primary text-white"
+                            onChange={onChange}
                         />
+                        <label>Email</label>
                     </div>
-                    <div>
-                        <label className="block mb-1 text-sm">Codeforces Handle</label>
+
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="code-slash-outline"></ion-icon></span>
                         <input
                             type="text"
+                            name="handle"
                             value={handle}
-                            onChange={(e) => setHandle(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-dark-primary text-white"
-                            placeholder="Optional but recommended"
+                            onChange={onChange}
                         />
+                        <label>CF Handle (Optional)</label>
                     </div>
-                    <div>
-                        <label className="block mb-1 text-sm">Password</label>
+
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
                         <input
                             type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-dark-primary text-white"
+                            name="password"
                             required
+                            value={password}
+                            onChange={onChange}
                         />
+                        <label>Password</label>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 font-bold text-white bg-dark-primary rounded-lg hover:bg-blue-600 transition duration-200"
-                    >
-                        Register
-                    </button>
+
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            required
+                            value={confirmPassword}
+                            onChange={onChange}
+                        />
+                        <label>Confirm Password</label>
+                    </div>
+
+                    <div className="remember-forget">
+                        <label><input type="checkbox" required /> I agree to terms</label>
+                    </div>
+
+                    <button type="submit">Register</button>
+
+                    <div className="register-link">
+                        <p>Already have an account? <Link to="/login">Login</Link></p>
+                    </div>
                 </form>
-                <div className="text-center text-sm">
-                    <p>Already have an account? <Link to="/login" className="text-dark-primary hover:underline">Login</Link></p>
-                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

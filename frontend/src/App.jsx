@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Contests from './pages/Contests';
 import Problems from './pages/Problems';
 import Friends from './pages/Friends';
+import StudyMaterial from './pages/StudyMaterial';
 import Layout from './components/Layout';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
@@ -42,6 +43,11 @@ function App() {
         <Route path="friends" element={
           <PrivateRoute>
             <Friends />
+          </PrivateRoute>
+        } />
+        <Route path="study-material" element={
+          <PrivateRoute>
+            <StudyMaterial />
           </PrivateRoute>
         } />
       </Route>

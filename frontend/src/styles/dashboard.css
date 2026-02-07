@@ -1,0 +1,123 @@
+/* Dashboard specific styles */
+
+.dashboard-container {
+    padding-bottom: 60px;
+}
+
+.dashboard-title {
+    color: var(--eerie-black);
+    font-size: var(--fs-4);
+    font-weight: var(--weight-600);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--cultured);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.stat-card {
+    background: var(--white);
+    border: 1px solid var(--cultured);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-timing);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    box-shadow: 0 10px 20px hsla(0, 0%, 0%, 0.05);
+    transform: translateY(-2px);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--white);
+}
+
+.stat-card.profile .stat-icon {
+    background: var(--salmon-pink);
+}
+
+.stat-card.activity .stat-icon {
+    background: var(--ocean-green);
+}
+
+.stat-card.code .stat-icon {
+    background: var(--sandy-brown);
+}
+
+.stat-card.contest .stat-icon {
+    background: var(--eerie-black);
+}
+
+.stat-label {
+    color: var(--sonic-silver);
+    font-size: var(--fs-7);
+    font-weight: var(--weight-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    color: var(--eerie-black);
+    font-size: var(--fs-2);
+    font-weight: var(--weight-700);
+    margin-bottom: 5px;
+}
+
+.stat-subtext {
+    color: var(--davys-gray);
+    font-size: var(--fs-9);
+}
+
+.stat-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid var(--cultured);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.stat-action {
+    font-size: var(--fs-9);
+    color: var(--salmon-pink);
+    font-weight: var(--weight-600);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-action:hover {
+    color: var(--eerie-black);
+}
+
+/* Ensure border radius is applied globally where missing */
+.header-search-container .search-field,
+.header-user-actions .action-btn,
+.mobile-bottom-navigation .action-btn {
+    border-radius: var(--border-radius-md);
+}
+
+.product-img {
+    border-radius: var(--border-radius-md);
+    /* Fix for image edges */
+}

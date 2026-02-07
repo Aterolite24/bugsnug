@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import '../styles/login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -20,43 +21,42 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-dark-bg text-dark-text">
-            <div className="w-full max-w-md p-8 space-y-6 bg-dark-card rounded-xl shadow-lg border border-gray-700">
-                <h2 className="text-3xl font-bold text-center text-dark-primary">Welcome Back</h2>
-                {error && <p className="text-red-500 text-center">{error}</p>}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block mb-1 text-sm">Username</label>
+        <section>
+            <div className="login-box">
+                <form onSubmit={handleSubmit}>
+                    <h2>Login</h2>
+                    {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
                         <input
                             type="text"
+                            required
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-dark-primary text-white"
-                            required
                         />
+                        <label>Username</label>
                     </div>
-                    <div>
-                        <label className="block mb-1 text-sm">Password</label>
+                    <div className="input-box">
+                        <span className="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
                         <input
                             type="password"
+                            required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-dark-primary text-white"
-                            required
                         />
+                        <label>Password</label>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 font-bold text-white bg-dark-primary rounded-lg hover:bg-blue-600 transition duration-200"
-                    >
-                        Login
-                    </button>
+                    <div className="remember-forget">
+                        <label><input type="checkbox" /> Remember me</label>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit">Login</button>
+                    <div className="register-link">
+                        <p>Don't have an account? <Link to="/register">Register</Link></p>
+                    </div>
                 </form>
-                <div className="text-center text-sm">
-                    <p>Don't have an account? <Link to="/register" className="text-dark-primary hover:underline">Register</Link></p>
-                </div>
             </div>
-        </div>
+        </section>
     );
 };
 
