@@ -7,26 +7,20 @@ const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="app-container">
-            <div className={`overlay ${isSidebarOpen ? 'active' : ''}`} onClick={() => setIsSidebarOpen(false)} data-overlay></div>
+        <div className="min-h-screen bg-babypink text-eerie-black flex">
+            {/* Sidebar (Fixed/Absolute on mobile) */}
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-            <Header onOpenSidebar={() => setIsSidebarOpen(true)} />
+            {/* Main Content Area */}
+            <div className="flex-1 flex flex-col min-w-0 lg:ml-0 transition-all duration-300">
+                <Navbar onOpenSidebar={() => setIsSidebarOpen(true)} />
 
-            <main className="container">
-                <div className="main-content-flex">
-                    <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-                    <div className="product-box">
-                        <Outlet />
-                    </div>
-                </div>
-            </main>
+                <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
+                    <Outlet />
+                </main>
+            </div>
         </div>
     );
 };
-
-// Internal Header component to avoid import loop or confusion, purely structural
-const Header = ({ onOpenSidebar }) => (
-    <Navbar onOpenSidebar={onOpenSidebar} />
-);
 
 export default Layout;

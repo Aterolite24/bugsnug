@@ -1,8 +1,115 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
 
 :root {
-  background-color: #1a1b26;
-  color: #a9b1d6;
+  background-color: var(--babypink);
+  color: var(--eerie-black);
+}
+
+body {
+  background-color: var(--babypink);
+  color: var(--eerie-black);
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Utilities for Light/Pastel Theme */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.glass-card {
+  background: var(--white);
+  border: 1px solid var(--cultured);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  /* Soft light shadow */
+  border-radius: var(--border-radius-md);
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  border-color: var(--salmon-pink);
+}
+
+.section-heading {
+  font-size: var(--fs-4);
+  font-weight: 600;
+  color: var(--onyx);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white);
+  border-left: 1px solid var(--cultured);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 80%);
+  border: 3px solid var(--white);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--salmon-pink);
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive Container */
+@media (max-width: 768px) {
+  .section-heading {
+    font-size: var(--fs-5);
+  }
+
+  .glass-card {
+    padding: 1.5rem !important;
+    /* Force smaller padding on mobile */
+  }
 }

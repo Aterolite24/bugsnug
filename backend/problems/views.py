@@ -25,6 +25,21 @@ class ProblemListView(APIView):
                 p['solvedCount'] = stats.get('solvedCount', 0)
                 result.append(p)
 
+            # Filter by rating
+            min_rating = request.query_params.get('min_rating')
+            max_rating = request.query_params.get('max_rating')
+
+            filtered_results = []
+            for p in result:
+                rating = p.get('rating')
+                if min_rating and (rating is None or rating < int(min_rating)):
+                    continue
+                if max_rating and (rating is None or rating > int(max_rating)):
+                    continue
+                filtered_results.append(p)
+            
+            result = filtered_results
+
             # Pagination (simple)
             page = int(request.query_params.get('page', 1))
             page_size = 20

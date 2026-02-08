@@ -30,7 +30,8 @@ const Register = () => {
             navigate('/');
         } catch (err) {
             console.error(err);
-            setError('Registration failed. Username taken or handle invalid.');
+            const errorMessage = err.response?.data?.error || err.message || 'Registration failed';
+            setError(errorMessage);
         }
     };
 
