@@ -1,15 +1,17 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
 
 export const AuthContext = createContext();
 
+// Custom hook to use auth context
+export const useAuth = () => {
+    return React.useContext(AuthContext);
+};
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        checkUserLoggedIn();
-    }, []);
 
     const checkUserLoggedIn = async () => {
         const token = localStorage.getItem('access');
@@ -25,6 +27,10 @@ export const AuthProvider = ({ children }) => {
         }
         setLoading(false);
     };
+
+    useEffect(() => {
+        checkUserLoggedIn(); // eslint-disable-line react-hooks/set-state-in-effect
+    }, []);
 
     const login = async (username, password) => {
         const response = await api.post('/users/token/', { username, password });

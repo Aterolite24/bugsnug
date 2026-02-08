@@ -35,7 +35,9 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
+
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'contests',
     'problems',
+    'chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bugsnug.wsgi.application'
+ASGI_APPLICATION = 'bugsnug.asgi.application'
 
 
 # Database
@@ -90,6 +95,20 @@ DATABASES = {
         conn_max_age=600
     )
 }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("127.0.0.1", 6379)],
+#         },
+#     },
+# }
 
 AUTH_USER_MODEL = 'users.User'
 

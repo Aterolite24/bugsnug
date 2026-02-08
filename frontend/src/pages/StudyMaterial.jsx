@@ -1,66 +1,76 @@
-import React from 'react';
-import '../styles/dashboard.css'; // Reusing dashboard styles for consistency
+const resources = [
+    {
+        title: 'Dynamic Programming',
+        desc: 'Master DP with these classic problems and tutorials.',
+        link: 'https://cp-algorithms.com/dynamic_programming/intro-to-dp.html',
+        color: 'primary'
+    },
+    {
+        title: 'Graph Theory',
+        desc: 'DFS, BFS, Dijkstra, and everything in between.',
+        link: 'https://cp-algorithms.com/graph/breadth-first-search.html',
+        color: 'secondary'
+    },
+    {
+        title: 'Data Structures',
+        desc: 'Segment Trees, BIT, and more advanced structures.',
+        link: 'https://cp-algorithms.com/data_structures/segment_tree.html',
+        color: 'accent-cyan'
+    },
+    {
+        title: 'Number Theory',
+        desc: 'Primes, GCD, Modular Arithmetic for CP.',
+        link: 'https://cp-algorithms.com/algebra/prime-sieve-linear.html',
+        color: 'accent-amber'
+    },
+];
 
 const StudyMaterial = () => {
     return (
-        <div className="dashboard-container">
-            <h2 className="dashboard-title">Study Material</h2>
+        <div className="space-y-6 animate-float">
+            <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+                <span className="w-2 h-8 bg-accent-cyan rounded-full"></span>
+                Study Zone
+            </h1>
 
-            <div className="stats-grid">
-                {/* Topic: Algorithms */}
-                <div className="stat-card activity">
-                    <div className="stat-header">
-                        <div className="stat-icon activity">
-                            <ion-icon name="book"></ion-icon>
-                        </div>
-                    </div>
-                    <div className="stat-body">
-                        <h3 className="stat-value">Algorithms</h3>
-                        <p className="stat-label">Core Concepts</p>
-                        <p className="stat-subtext">Sorting, Searching, Graph Theory, DP</p>
-                    </div>
-                    <div className="stat-footer">
-                        <a href="https://cp-algorithms.com/" target="_blank" rel="noopener noreferrer" className="stat-action">Read Docs</a>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {resources.map((res, index) => (
+                    <a
+                        key={index}
+                        href={res.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="glass-card p-6 group hover:border-primary/50 transition-all block hover:-translate-y-1"
+                    >
+                        <h3 className={`text-xl font-bold mb-2 group-hover:text-primary transition-colors text-white`}>
+                            {res.title}
+                        </h3>
+                        <p className="text-dark-muted text-sm mb-4">
+                            {res.desc}
+                        </p>
+                        <span className="text-xs font-bold text-primary flex items-center gap-1">
+                            Read Article <ArrowIcon className="w-4 h-4" />
+                        </span>
+                    </a>
+                ))}
+            </div>
+
+            <div className="glass-card p-8 mt-8">
+                <h3 className="text-xl font-bold text-white mb-4">Tip of the Day</h3>
+                <div className="bg-dark-bg/50 p-6 rounded-xl border border-dark-border">
+                    <p className="text-dark-text italic">
+                        "Always check constraints! If N ≤ 20, think about O(2^N) or O(N * 2^N). If N ≤ 1000, O(N^2) is fine. If N ≤ 10^5, aim for O(N log N) or O(N)."
+                    </p>
                 </div>
-
-                {/* Topic: Data Structures */}
-                <div className="stat-card code">
-                    <div className="stat-header">
-                        <div className="stat-icon code">
-                            <ion-icon name="server"></ion-icon>
-                        </div>
-                    </div>
-                    <div className="stat-body">
-                        <h3 className="stat-value">Data Structures</h3>
-                        <p className="stat-label">Organization</p>
-                        <p className="stat-subtext">Arrays, Trees, Graphs, Heaps</p>
-                    </div>
-                    <div className="stat-footer">
-                        <a href="https://www.geeksforgeeks.org/data-structures/" target="_blank" rel="noopener noreferrer" className="stat-action">View Guide</a>
-                    </div>
-                </div>
-
-                {/* Topic: Mathematics */}
-                <div className="stat-card profile">
-                    <div className="stat-header">
-                        <div className="stat-icon profile">
-                            <ion-icon name="calculator"></ion-icon>
-                        </div>
-                    </div>
-                    <div className="stat-body">
-                        <h3 className="stat-value">Mathematics</h3>
-                        <p className="stat-label">Number Theory</p>
-                        <p className="stat-subtext">Primes, Combinatorics, Geometry</p>
-                    </div>
-                    <div className="stat-footer">
-                        <a href="https://mathworld.wolfram.com/" target="_blank" rel="noopener noreferrer" className="stat-action">Explore</a>
-                    </div>
-                </div>
-
             </div>
         </div>
     );
 };
+
+const ArrowIcon = ({ className }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
+);
 
 export default StudyMaterial;

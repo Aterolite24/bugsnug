@@ -7,6 +7,10 @@ import Contests from './pages/Contests';
 import Problems from './pages/Problems';
 import Friends from './pages/Friends';
 import StudyMaterial from './pages/StudyMaterial';
+import Chat from './pages/Chat';
+import Settings from './pages/Settings';
+import UserProfile from './pages/UserProfile';
+import Comparison from './pages/Comparison';
 import Layout from './components/Layout';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
@@ -48,6 +52,31 @@ function App() {
         <Route path="study-material" element={
           <PrivateRoute>
             <StudyMaterial />
+          </PrivateRoute>
+        } />
+        <Route path="chat" element={
+          <PrivateRoute>
+            <Chat />
+          </PrivateRoute>
+        } />
+        <Route path="settings" element={
+          <PrivateRoute>
+            <Settings />
+          </PrivateRoute>
+        } />
+        <Route path="profile/:query" element={
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        } />
+        <Route path="compare/:handle" element={
+          <PrivateRoute>
+            <Comparison />
+          </PrivateRoute>
+        } />
+        <Route path="compare" element={
+          <PrivateRoute>
+            <Comparison />
           </PrivateRoute>
         } />
       </Route>
